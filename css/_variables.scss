@@ -1,0 +1,22 @@
+//colours
+$white: #ffffff;
+$eggshell: #f5f5f5;
+$lightGrey: #cccccc;
+$lightGreyBrown: #b0a9a7;
+$darkGrey: #404040;
+
+//misc.
+$browser-context: 16px;
+$border: $lightGrey 1px solid;
+
+//mixins
+@mixin padding {
+	padding: em(18px) em(72px);
+}
+
+//functions
+@function em($px, $context: $browser-context) {
+	@if ( unitless($px) ) { $px: $px * 1px; }
+	@if ( unitless($context) ) { $context: $context * 1px; }
+	@return $px / $context * 1em;
+}

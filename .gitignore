@@ -2,3 +2,5 @@ shopping-list.sublime-project
 shopping-list.sublime-workspace
 config.codekit
 Development/
+bower_components/
+css/.sass-cache/

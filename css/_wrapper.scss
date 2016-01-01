@@ -1,0 +1,14 @@
+.wrapper {
+	width: em(768px);
+	margin: 0 auto;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.wrapper--theme1 {
+	background-color: $white;
+	border: $border;
+	box-shadow: 0 10px 30px 0 rgba($darkGrey, 0.1);
+}

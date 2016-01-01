@@ -1,0 +1,28 @@
+.total {
+	text-align: center;
+	div[class*='row'] {
+		height: auto;
+		margin-bottom: 0;
+	}
+	h4 {
+		margin: 0;
+	}
+	.total__price {
+		padding: 0 em(12px);
+	}
+}
+
+.total--theme1 {
+	h4 {
+		font-size: em(12px);
+		font-weight: 300;
+		text-transform: uppercase;
+	}
+	> div:last-child {
+		text-align: right;
+
+		.total__price {
+			font-size: em(27px);
+		}
+	}
+}

@@ -1,0 +1,20 @@
+.list {
+	@include padding;
+
+	div[class*='row'] {
+		height: em(42px);
+	}
+}
+
+.list--theme1 {
+	div[class*='col'] > span {
+		display: inline-block;
+		border-bottom: $border;
+		width: 100%;
+	}
+}
+
+.is-crossed-off {
+	color: $lightGreyBrown;
+	text-decoration: line-through;
+}

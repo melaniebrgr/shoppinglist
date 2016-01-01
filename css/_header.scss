@@ -1,0 +1,36 @@
+.header {
+	@include padding;
+	padding-bottom: 0;
+	text-align: center;
+
+	h1:before {
+		background-image: url(../img/logo-placeholder.png);
+	    background-repeat: no-repeat;
+		content: "";
+		display: block;
+		margin-left: -102px;
+		margin-top: -23px;
+		position: absolute;
+		width: em(92px, 32px);
+		height: em(92px, 32px);
+		z-index: 1;
+	}
+	.categories > .row, .categories h4 { //the categories are in a grid
+		margin: em(4px);
+	}
+}
+.header--theme1 {
+	background-color: $eggshell;
+	border-bottom: $border;
+	h1 {
+		display: inline-block;
+		font-size: em(32px);
+		font-weight: 300;
+		margin: em(12px) 0;
+	}
+	.categories h4 {
+		font-size: em(12px);
+		font-weight: 300;
+		text-transform: uppercase;
+	}
+}
