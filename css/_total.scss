@@ -1,5 +1,6 @@
 .total {
 	text-align: center;
+
 	div[class*='row'] {
 		height: auto;
 		margin-bottom: 0;
@@ -8,7 +9,8 @@
 		margin: 0;
 	}
 	.total__price {
-		padding: 0 em(12px);
+		display: inline-block;
+		padding: 0 em(12px, 27px);
 	}
 }
 
@@ -24,6 +26,11 @@
 
 		.total__price {
 			font-size: em(27px);
+			&::first-letter {
+				color: $darkGrey;
+				font-size: em(12px, 27px);
+				font-weight: 300;
+			}
 		}
 	}
 }

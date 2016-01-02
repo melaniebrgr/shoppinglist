@@ -4,17 +4,39 @@
 	div[class*='row'] {
 		height: em(42px);
 	}
+	div[class*='col'] > span {
+		display: inline-block;
+		width: 100%;
+		input {
+			width: 100%;
+		}
+		&.list__price input { 
+			width: 89%;
+			margin-left: 2%;
+		} 
+	}
 }
 
 .list--theme1 {
 	div[class*='col'] > span {
-		display: inline-block;
 		border-bottom: $border;
-		width: 100%;
+	}
+	.list__price::first-letter {
+		color: $darkGrey;
+		font-size: em(12px);
+		font-weight: 300;
+	}
+	input {
+		border: none;
+		font-size: em(18px);
 	}
 }
 
 .is-crossed-off {
-	color: $lightGreyBrown;
-	text-decoration: line-through;
+	.list__quantity, .list__product, .list__price {
+		input {
+			color: $lightGreyBrown;
+			text-decoration: line-through;
+		}
+	}
 }

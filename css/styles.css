@@ -374,6 +374,9 @@ th {
 body {
   background-color: #f5f5f5; }
 
+textarea, input {
+  outline: none; }
+
 .container {
   top: 0;
   left: 0;
@@ -431,13 +434,26 @@ body {
   padding: 1.125em 4.5em; }
   .list div[class*='row'] {
     height: 2.625em; }
+  .list div[class*='col'] > span {
+    display: inline-block;
+    width: 100%; }
+    .list div[class*='col'] > span input {
+      width: 100%; }
+    .list div[class*='col'] > span.list__price input {
+      width: 89%;
+      margin-left: 2%; }
 
 .list--theme1 div[class*='col'] > span {
-  display: inline-block;
-  border-bottom: #cccccc 1px solid;
-  width: 100%; }
+  border-bottom: #cccccc 1px solid; }
+.list--theme1 .list__price::first-letter {
+  color: #404040;
+  font-size: 0.75em;
+  font-weight: 300; }
+.list--theme1 input {
+  border: none;
+  font-size: 1.125em; }
 
-.is-crossed-off {
+.is-crossed-off .list__quantity input, .is-crossed-off .list__product input, .is-crossed-off .list__price input {
   color: #b0a9a7;
   text-decoration: line-through; }
 
@@ -449,7 +465,8 @@ body {
   .total h4 {
     margin: 0; }
   .total .total__price {
-    padding: 0 0.75em; }
+    display: inline-block;
+    padding: 0 0.4444444444em; }
 
 .total--theme1 h4 {
   font-size: 0.75em;
@@ -460,3 +477,7 @@ body {
   text-align: right; }
   .total--theme1 > div:last-child .total__price {
     font-size: 1.6875em; }
+    .total--theme1 > div:last-child .total__price::first-letter {
+      color: #404040;
+      font-size: 0.4444444444em;
+      font-weight: 300; }
