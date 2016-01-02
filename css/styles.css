@@ -382,7 +382,7 @@ body {
   position: absolute;
   overflow: hidden; }
 
-.wrapper {
+.shopping-list {
   width: 48em;
   margin: 0 auto;
   left: 50%;
@@ -390,7 +390,7 @@ body {
   top: 50%;
   transform: translate(-50%, -50%); }
 
-.wrapper--theme1 {
+.shopping-list--theme1 {
   background-color: #ffffff;
   border: #cccccc 1px solid;
   box-shadow: 0 10px 30px 0 rgba(64, 64, 64, 0.1); }
@@ -424,6 +424,7 @@ body {
   .header--theme1 .categories h4 {
     font-size: 0.75em;
     font-weight: 300;
+    letter-spacing: 0.25em;
     text-transform: uppercase; }
 
 .list {
@@ -453,6 +454,7 @@ body {
 .total--theme1 h4 {
   font-size: 0.75em;
   font-weight: 300;
+  letter-spacing: 0.25em;
   text-transform: uppercase; }
 .total--theme1 > div:last-child {
   text-align: right; }

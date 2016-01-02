@@ -1,0 +1,98 @@
+{
+	"items": [
+		{
+			"product": "apple",
+			"ppUnit": 1.3,
+			"ppKilo": 0.65,
+		},
+		{
+			"product": "granola bar",
+			"ppUnit": 3.74
+		},
+		{
+			"product": "peanut butter",
+			"ppUnit": 4.98
+		},
+		{
+			"product": "banana",
+			"ppUnit": 0.45,
+			"ppKilo": 0.26
+		},
+		{
+			"product": "craisins",
+			"ppUnit": 2.79
+		},
+		{
+			"product": "apple cider vinegar",
+			"ppUnit": 1.89
+		},
+		{
+			"product": "egg noodle",
+			"ppUnit": 2.79
+		},
+		{
+			"product": "mustard",
+			"ppUnit": 3.89
+		},
+		{
+			"product": "sour cream",
+			"ppUnit": 2.19
+		},
+		{
+			"product": "eggs",
+			"ppUnit": 2.99
+		},
+		{
+			"product": "garlic",
+			"ppUnit": 0.99,
+			"ppKilo": 0.34
+		},
+		{
+			"product": "yellow onion",
+			"ppUnit": 2.50,
+			"ppKilo": 0.91
+		},
+		{
+			"product": "broccoli",
+			"ppUnit": 3.89,
+			"ppKilo": 6.59
+		},
+		{
+			"product": "green onion",
+			"ppUnit": 1.29
+		},
+		{
+			"product": "milk",
+			"ppUnit": 6.29,
+			"ppLitre": 2.10
+		},
+		{
+			"product": "bacon",
+			"ppUnit": 5.99
+		},
+		{
+			"product": "cheerios",
+			"ppUnit": 4.89
+		},
+		{
+			"product": "pecan halves",
+			"ppUnit": 4.99
+		},
+		{
+			"product": "condensed milk",
+			"ppUnit": 4.29
+		},
+		{
+			"product": "orange juice",
+			"ppUnit": 3.99
+		},
+		{
+			"product": "butter",
+			"ppUnit": 4.79
+		},
+		{
+			"product": "whipping cream",
+			"ppUnit": 2.99
+		}
+	]
+}
