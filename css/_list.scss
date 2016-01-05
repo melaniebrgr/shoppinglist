@@ -10,7 +10,7 @@
 		input {
 			width: 100%;
 		}
-		&.list__price input { 
+		&.list__price input { //the last input should be slightly smaller to accomodate '$' sign
 			width: 89%;
 			margin-left: 2%;
 		} 
@@ -31,7 +31,6 @@
 		font-size: em(18px);
 	}
 }
-
 .is-crossed-off {
 	.list__quantity, .list__product, .list__price {
 		input {
@@ -39,4 +38,18 @@
 			text-decoration: line-through;
 		}
 	}
+}
+
+.is-matched {
+	@include shadow;
+	background: $white;
+	display: none;
+	padding: em(4px) em(12px);
+	position: absolute;
+	border: $border;
+	border-top: none;
+	list-style-type: none;
+	margin: 0;
+	// width: 100%;
+	z-index: 1;
 }

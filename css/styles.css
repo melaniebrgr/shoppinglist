@@ -414,7 +414,7 @@ textarea, input {
     height: 2.875em;
     z-index: 1; }
   .header .categories > .row, .header .categories h4 {
-    margin: 0.25em; }
+    margin: 0.25em 0; }
 
 .header--theme1 {
   background-color: #f5f5f5;
@@ -456,6 +456,18 @@ textarea, input {
 .is-crossed-off .list__quantity input, .is-crossed-off .list__product input, .is-crossed-off .list__price input {
   color: #b0a9a7;
   text-decoration: line-through; }
+
+.is-matched {
+  box-shadow: 0 10px 30px 0 rgba(64, 64, 64, 0.1);
+  background: #ffffff;
+  display: none;
+  padding: 0.25em 0.75em;
+  position: absolute;
+  border: #cccccc 1px solid;
+  border-top: none;
+  list-style-type: none;
+  margin: 0;
+  z-index: 1; }
 
 .total {
   text-align: center; }

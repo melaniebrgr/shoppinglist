@@ -13,6 +13,9 @@ $border: $lightGrey 1px solid;
 @mixin padding {
 	padding: em(18px) em(72px);
 }
+@mixin shadow {
+	box-shadow: 0 10px 30px 0 rgba($darkGrey, 0.1);
+}
 
 //functions
 @function em($px, $context: $browser-context) {
