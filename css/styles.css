@@ -356,7 +356,6 @@ th {
 .grid div[class*='row'] {
   clear: both;
   margin: 0.75em 0;
-  overflow: hidden;
   width: 100%; }
   .grid div[class*='row'] div[class*='col'] {
     display: inline-block;
@@ -365,6 +364,7 @@ th {
   .grid div[class*='row'] .col-sm {
     width: 16.7%; }
   .grid div[class*='row'] .col-mid {
+    position: relative;
     width: 66.6%; }
 
 *, *:before, *:after {
@@ -467,6 +467,7 @@ textarea, input {
   border-top: none;
   list-style-type: none;
   margin: 0;
+  width: 100%;
   z-index: 1; }
 
 .total {

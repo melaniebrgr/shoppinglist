@@ -2,7 +2,7 @@
 	div[class*='row'] {
 		clear: both;
 		margin: em(12px) 0;
-		overflow: hidden;
+		// overflow: hidden;
 		width: 100%;
 
 		div[class*='col'] {
@@ -10,10 +10,11 @@
 			float: left;
 			padding: 0 em(12px);
 		}
-		.col-sm { //always set two smal and one mid column in layouts
+		.col-sm { //always set two small and one mid column in layouts
 			width: 16.7%;
 		}
 		.col-mid {
+			position: relative;
 			width: 66.6%;
 		}
 	}
