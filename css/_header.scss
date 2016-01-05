@@ -2,6 +2,7 @@
 	@include padding;
 	padding-bottom: 0;
 	text-align: center;
+	overflow: hidden;
 
 	h1:before {
 		background-image: url(../img/logo-placeholder.png);
@@ -16,7 +17,7 @@
 		z-index: 1;
 	}
 	.categories > .row, .categories h4 { //the categories are in a grid
-		margin: em(4px) 0;
+		margin: em(9px) 0;
 	}
 }
 .header--theme1 {

@@ -8,6 +8,7 @@
 		display: inline-block;
 		width: 100%;
 		input {
+			padding: em(4px) 0;
 			width: 100%;
 		}
 		&.list__price input { //the last input should be slightly smaller to accomodate '$' sign
@@ -41,15 +42,21 @@
 }
 
 .is-matched {
-	@include shadow;
 	background: $white;
-	display: none;
-	padding: em(4px) em(12px);
-	position: absolute;
 	border: $border;
 	border-top: none;
+	box-shadow: 0 1px 3px 0 $lightGrey;
+	display: none;
 	list-style-type: none;
 	margin: 0;
-	width: 100%;
+	padding: 0;
+	position: absolute;
 	z-index: 1;
+
+	li {
+		padding: em(4px) em(12px);
+		&:hover {
+			background: $eggshell;
+		}
+	}
 }
