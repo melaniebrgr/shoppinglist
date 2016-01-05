@@ -31,7 +31,9 @@ function setPredictiveType() {
 					$(that).siblings('ul').append('<li>' + el.product + '</li>');
 				}
 			});
+			
 			//if there were no matches (no list items)
+			log($(that).siblings('ul').length);
 			// $(that).siblings('ul').append('<li> No matches :( </li>');
 		} else {
 				$(that).siblings('ul').css('display', 'none').removeClass('is-matched').empty();
