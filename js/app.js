@@ -15,8 +15,6 @@ $.getJSON("js/items.json")
 		});
 	});
 
-
-
 function setOnBlur() {
 	$('.list__product input').blur(function() {
 		$(this).parent().siblings('ul')
@@ -26,10 +24,10 @@ function setOnBlur() {
 	});
 }
 
-function enableLineItemClick( itemsList ) {
+function enableLineItemClick( $itemsList ) {
 	log('enableLineItemClick function called');
-	itemsList.find('li').off();
-	itemsList.find('li').click(function() {
+	$itemsList.find('li').off();
+	$itemsList.find('li').click(function() {
 		log('hi');
 	});
 }
@@ -47,8 +45,22 @@ function setPredictiveType() {
 				.css('display', 'block'); //only needs to happen when element is focussed
 
 			items.forEach(function(el) {
-				if ( el.product.indexOf(val) > -1 ) { 
-					$itemsList.append('<li>' + el.product + '</li>');
+				if ( el.product.indexOf(val) > -1 ) {
+					var firstMatchingCharIndex = el.product.indexOf(val);
+					var lastMatchingCharIndex = val.length - 1;
+					var productCharArr = el.product.split('');
+					var highlightedStr = '';
+					productCharArr.forEach(function(el, i) { //reformat prodcut strng with new class
+						if ( i === (firstMatchingCharIndex) ) {
+							highlightedStr += '<span class="is-matching-char">' + el;
+							if ( val.length === 1 ) { highlightedStr += '</span>'; }
+						} else if ( i === (lastMatchingCharIndex) ) {
+							highlightedStr += el + '</span>';
+						} else {
+							highlightedStr += el;
+						}
+					});
+					$itemsList.append('<li>' + highlightedStr + '</li>');
 				}
 			});
 

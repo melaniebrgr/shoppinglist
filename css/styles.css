@@ -476,6 +476,9 @@ textarea, input {
       background: #f5f5f5;
       cursor: pointer; }
 
+.is-matching-char {
+  font-weight: 700; }
+
 .total {
   text-align: center; }
   .total div[class*='row'] {
