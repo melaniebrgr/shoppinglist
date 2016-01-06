@@ -22,16 +22,19 @@ function setOnBlur() {
 				.css('display', 'none')
 				.removeClass('is-matched')
 				.empty();
-			log('blurred');
 		}
 	});
 }
 
 function enableLineItemClick( $itemsList ) {
-	log('enableLineItemClick function called');
 	$itemsList.find('li').off();
 	$itemsList.find('li').click(function() {
-		log('hi');
+		var $products = $(this).parent().siblings('.list__product');
+		$products.children('input').val( $(this).text() );
+		$products.siblings('ul')
+			.css('display', 'none')
+			.removeClass('is-matched')
+			.empty();
 	});
 }
 
@@ -71,10 +74,10 @@ function setPredictiveType() {
 				enableLineItemClick( $itemsList ); //if product(s) match, attach event handlers
 			} else { //update if no product matches
 				$itemsList
-					// .css('display', 'none')
-					// .removeClass('is-matched')
-					// .empty()
-					.append('<li> no matches :( </li>');
+					.css('display', 'none')
+					.removeClass('is-matched')
+					.empty();
+					// .append('<li> no matches :( </li>');
 			}
 		} else {
 			$itemsList
