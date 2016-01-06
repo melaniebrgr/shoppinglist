@@ -17,10 +17,13 @@ $.getJSON("js/items.json")
 
 function setOnBlur() {
 	$('.list__product input').blur(function() {
-		$(this).parent().siblings('ul')
-			.css('display', 'none')
-			.removeClass('is-matched')
-			.empty();
+		if ( !$(this).parent().siblings('ul').is(':hover') ) { 
+			$(this).parent().siblings('ul')
+				.css('display', 'none')
+				.removeClass('is-matched')
+				.empty();
+			log('blurred');
+		}
 	});
 }
 
