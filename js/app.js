@@ -2,7 +2,6 @@
 function log(m) {
 	console.log(m);
 }
-log('something');
 
 /* ----- APP ----- */
 var items;
@@ -15,6 +14,25 @@ $.getJSON("js/items.json")
 			return 0;
 		});
 	});
+
+
+
+function setOnBlur() {
+	$('.list__product input').blur(function() {
+		$(this).parent().siblings('ul')
+			.css('display', 'none')
+			.removeClass('is-matched')
+			.empty();
+	});
+}
+
+function enableLineItemClick( itemsList ) {
+	log('enableLineItemClick function called');
+	itemsList.find('li').off();
+	itemsList.find('li').click(function() {
+		log('hi');
+	});
+}
 
 function setPredictiveType() {
 	$('.list__product input').keyup(function() {
@@ -33,12 +51,15 @@ function setPredictiveType() {
 					$itemsList.append('<li>' + el.product + '</li>');
 				}
 			});
-			if ( !$itemsList.children().length ) { //if no product matches, do this
+
+			if ( $itemsList.children().length ) {
+				enableLineItemClick( $itemsList ); //if product(s) match, attach event handlers
+			} else { //update if no product matches
 				$itemsList
 					// .css('display', 'none')
 					// .removeClass('is-matched')
 					// .empty()
-					.append('<li> No matches :( </li>');
+					.append('<li> no matches :( </li>');
 			}
 		} else {
 			$itemsList
@@ -49,27 +70,9 @@ function setPredictiveType() {
 	});
 }
 
-function setOnBlur() {
-	$('.list__product input').blur(function() {
-		$(this).parent().siblings('ul')
-			.css('display', 'none')
-			.removeClass('is-matched')
-			.empty();
-	});
-}
-
-function enableLineItemClick() {
-	log('...');
-	$('.list__product ul li').off();
-	$('.list__product ul li').click(function() {
-		log('hi');
-	});
-}
-
 /* ----- DOC READY ----- */
 $(document).ready(function() {
 	setPredictiveType();
 	setOnBlur();
-	enableLineItemClick();
 });
 
