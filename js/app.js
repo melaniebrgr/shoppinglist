@@ -17,12 +17,12 @@ $.getJSON("js/items.json")
 	});
 
 function setPredictiveType() {
-	$('.list__product').keyup(function() {
-		var that = this;
-		var val = $(this).find('input').val();
+	$('.list__product input').keyup(function() {
+		var $itemsList = $(this).parent().siblings('ul');
+		var val = $(this).val();
 
 		if ( val.length > 0 ) { 
-			$(this).siblings('ul')
+			$itemsList
 				.empty()
 				.addClass('is-matched') //only needs to happen when element is focussed
 				.css('width', $(this).parent().width())
@@ -30,18 +30,18 @@ function setPredictiveType() {
 
 			items.forEach(function(el) {
 				if ( el.product.indexOf(val) > -1 ) { 
-					$(that).siblings('ul').append('<li>' + el.product + '</li>');
+					$itemsList.append('<li>' + el.product + '</li>');
 				}
 			});
-			if ( !$(this).siblings('ul').children().length ) { //if no product matches, do this
-				$(this).siblings('ul')
+			if ( !$itemsList.children().length ) { //if no product matches, do this
+				$itemsList
 					// .css('display', 'none')
 					// .removeClass('is-matched')
 					// .empty()
 					.append('<li> No matches :( </li>');
 			}
 		} else {
-			$(this).siblings('ul')
+			$itemsList
 				.css('display', 'none')
 				.removeClass('is-matched')
 				.empty();
@@ -58,15 +58,18 @@ function setOnBlur() {
 	});
 }
 
-// function enableLineItemClick() {
-// 	// try without .off() >:)
-// 	// $('.list__product ul li').off()
-// 	$('.list__product ul li').click(function(){log('hi');});
-// }
+function enableLineItemClick() {
+	log('...');
+	$('.list__product ul li').off();
+	$('.list__product ul li').click(function() {
+		log('hi');
+	});
+}
 
 /* ----- DOC READY ----- */
 $(document).ready(function() {
 	setPredictiveType();
 	setOnBlur();
+	enableLineItemClick();
 });
 
