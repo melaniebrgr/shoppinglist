@@ -16,8 +16,13 @@
 		height: em(92px, 32px);
 		z-index: 1;
 	}
-	.categories > .row, .categories h4 { //the categories are in a grid
-		margin: em(9px) 0;
+	.categories {
+		.row { //the categories are in a grid
+			height: 0;
+		}
+		h4 { 
+			margin: em(9px) 0 em(12px) 0;
+		}
 	}
 }
 .header--theme1 {

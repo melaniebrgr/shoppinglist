@@ -355,7 +355,7 @@ th {
 
 .grid div[class*='row'] {
   clear: both;
-  margin: 0.75em 0;
+  height: 2.625em;
   width: 100%; }
   .grid div[class*='row'] div[class*='col'] {
     display: inline-block;
@@ -372,7 +372,8 @@ th {
   font-family: 'Open Sans', 'open sans', sans-serif; }
 
 body {
-  background-color: #f5f5f5; }
+  background-color: #f5f5f5;
+  color: #404040; }
 
 textarea, input {
   outline: none; }
@@ -414,8 +415,10 @@ textarea, input {
     width: 2.875em;
     height: 2.875em;
     z-index: 1; }
-  .header .categories > .row, .header .categories h4 {
-    margin: 0.5625em 0; }
+  .header .categories .row {
+    height: 0; }
+  .header .categories h4 {
+    margin: 0.5625em 0 0.75em 0; }
 
 .header--theme1 {
   background-color: #f5f5f5;
@@ -433,19 +436,17 @@ textarea, input {
 
 .list {
   padding: 1.125em 4.5em; }
-  .list div[class*='row'] {
-    height: 2.625em; }
-  .list div[class*='col'] > span {
+  .list span[class^='list__'] {
     display: inline-block;
     width: 100%; }
-    .list div[class*='col'] > span input {
-      padding: 0.25em 0;
+    .list span[class^='list__'] input {
+      padding: 0;
       width: 100%; }
-    .list div[class*='col'] > span.list__price input {
-      width: 89%;
-      margin-left: 2%; }
+    .list span[class^='list__'].list__price input {
+      width: 88%;
+      margin-left: 2px; }
 
-.list--theme1 div[class*='col'] > span {
+.list--theme1 span[class^='list__'] {
   border-bottom: #cccccc 1px solid; }
 .list--theme1 .list__price::first-letter {
   color: #404040;

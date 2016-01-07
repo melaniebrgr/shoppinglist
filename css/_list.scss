@@ -1,25 +1,21 @@
 .list {
 	@include padding;
 
-	div[class*='row'] {
-		height: em(42px);
-	}
-	div[class*='col'] > span {
+	span[class^='list__'] {
 		display: inline-block;
 		width: 100%;
 		input {
-			padding: em(4px) 0;
+			padding: 0;
 			width: 100%;
 		}
 		&.list__price input { //the last input should be slightly smaller to accomodate '$' sign
-			width: 89%;
-			margin-left: 2%;
+			width: 88%;
+			margin-left: 2px;
 		} 
 	}
 }
-
 .list--theme1 {
-	div[class*='col'] > span {
+	span[class^='list__'] {
 		border-bottom: $border;
 	}
 	.list__price::first-letter {
@@ -32,6 +28,7 @@
 		font-size: em(18px);
 	}
 }
+
 .is-crossed-off {
 	.list__quantity, .list__product, .list__price {
 		input {
@@ -40,7 +37,6 @@
 		}
 	}
 }
-
 .is-matched {
 	background: $white;
 	border: $border;
@@ -61,7 +57,6 @@
 		}
 	}
 }
-
 .is-matching-char {
 	font-weight: 700;
 }

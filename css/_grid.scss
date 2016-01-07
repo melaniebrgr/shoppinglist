@@ -1,7 +1,8 @@
 .grid {
 	div[class*='row'] {
 		clear: both;
-		margin: em(12px) 0;
+		height: em(42px);
+		// margin: em(12px) 0;
 		width: 100%;
 
 		div[class*='col'] {
