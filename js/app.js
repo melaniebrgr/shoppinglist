@@ -26,16 +26,15 @@ function setOnBlur() {
 	});
 }
 
-function calculatePrice( $products ) {
-	var price, itemData;
+function calculatePrice( $row ) {
+	var quantity, product, price, itemData;
+	var $qtyInput = $row.find('.list__quantity').children('input');
+	var $priceInput = $row.find('.list__price').children('input');
+	var $prodInput = $row.find('.list__product').children('input');
+	
+	$qtyInput.val().length ? ( quantity = parseInt($qtyInput.val()) ) : ( quantity = 1, $qtyInput.val('1') ); //set quantity
+	product = $prodInput.val();
 
-	var $qtyInput = $products.parent().siblings().children('.list__quantity').children('input');
-	var $priceInput = $products.parent().siblings().children('.list__price').children('input');
-	var $prodInput = $products.children('input');
-	var product = $prodInput.val();
-	var quantity = $qtyInput.val() || 1;
-
-	//find or retrieve matched product
 	items.forEach(function(el) {
 		if ( el.product === product ) { 
 			itemData = el;
@@ -44,41 +43,49 @@ function calculatePrice( $products ) {
 			return;
 		}
 	});
-	// log(price);
 }
+
+// function setQuantity() {
+// 	//on keyup, get value
+// 	//if invalid, alert user
+// 	//if valid new value, calculate new price
+// 	//if old value, do nothing
+// 	var quantity;
+// 	$('.list__quantity input').keyup(function() {
+// 		if ()
+// 		log('quant');
+// 	});
+// }
 
 function enableLineItemClick( $itemsList ) {
 	$itemsList.find('li').off();
 	$itemsList.find('li').click(function() {
-		log('test');
-		var $products = $(this).parent().siblings('.list__product');
-		$products.children('input').val( $(this).text() );
-		$products.siblings('ul')
-			.css('display', 'none')
-			.removeClass('is-matched')
-			.empty();
-		calculatePrice( $products );
+		var $row = $(this).closest('div[class^=row]');
+		var $products = $row.find('.list__product');
+		$products.children('input').val( $(this).text() ); //set product name
+		$products.siblings('ul').css('display', 'none').removeClass('is-matched').empty(); //hide list
+		calculatePrice( $row );
 	});
 }
 
 function setPredictiveType() {
+	/*  On keyup, check if there is any input, if so, display the items list, then look through the 
+	array of items and display any matching products in the list (format so match is bolded). After that, if there
+	are items in the list, attach click event handlers to them; if there aren't any items or you've deleted
+	the text in the input, remove the list */
 	$('.list__product input').keyup(function() {
-		var $itemsList = $(this).parent().siblings('ul');
-		var val = $(this).val();
+		var $itemsList = $(this).parent().siblings('ul'); //reference to product list
+		var val = $(this).val(); //value of product text field
 
 		if ( val.length > 0 ) { 
-			$itemsList
-				.empty()
-				.addClass('is-matched') //only needs to happen when element is focussed
-				.css('width', $(this).parent().width())
-				.css('display', 'block'); //only needs to happen when element is focussed
+			$itemsList.empty().addClass('is-matched').css('width', $(this).parent().width()).css('display', 'block');
 			items.forEach(function(el) {
-				if ( el.product.indexOf(val) > -1 ) {
+				if ( el.product.indexOf(val) > -1 ) { //find matching characters
 					var firstMatchingCharIndex = el.product.indexOf(val);
 					var lastMatchingCharIndex = firstMatchingCharIndex + val.length - 1;
 					var productCharArr = el.product.split('');
 					var highlightedStr = '';
-					productCharArr.forEach(function(el, i) { //reformat prodcut strng with new class
+					productCharArr.forEach(function(el, i) { //format string
 						if ( i === (firstMatchingCharIndex) ) {
 							highlightedStr += '<span class="is-matching-char">' + el;
 							if ( val.length === 1 ) { highlightedStr += '</span>'; }
@@ -91,22 +98,10 @@ function setPredictiveType() {
 					$itemsList.append('<li>' + highlightedStr + '</li>');
 				}
 			});
+			if ( $itemsList.children().length ) { enableLineItemClick( $itemsList ); //attach click handler to items
+			} else { $itemsList.css('display', 'none').removeClass('is-matched').empty(); } //hide list
+		} else { $itemsList.css('display', 'none').removeClass('is-matched').empty(); } //hide list
 
-			if ( $itemsList.children().length ) {
-				enableLineItemClick( $itemsList ); //if product(s) match, attach event handlers
-			} else { //update if no product matches
-				$itemsList
-					.css('display', 'none')
-					.removeClass('is-matched')
-					.empty();
-					// .append('<li> no matches :( </li>');
-			}
-		} else {
-			$itemsList
-				.css('display', 'none')
-				.removeClass('is-matched')
-				.empty();
-		}
 	});
 }
 
@@ -114,5 +109,6 @@ function setPredictiveType() {
 $(document).ready(function() {
 	setPredictiveType();
 	setOnBlur();
+	// setQuantity();
 });
 
