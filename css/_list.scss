@@ -1,5 +1,5 @@
 .list {
-	@include padding;
+	padding: 2em 4.5em 1.2em 4.5em;
 
 	span[class^='list__'] {
 		display: inline-block;

@@ -435,7 +435,7 @@ textarea, input {
     text-transform: uppercase; }
 
 .list {
-  padding: 1.125em 4.5em; }
+  padding: 2em 4.5em 1.2em 4.5em; }
   .list span[class^='list__'] {
     display: inline-block;
     width: 100%; }
