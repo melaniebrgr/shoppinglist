@@ -32,7 +32,12 @@ function calculatePrice( $row ) {
 	var $priceInput = $row.find('.list__price').children('input');
 	var $prodInput = $row.find('.list__product').children('input');
 	
-	$qtyInput.val().length ? ( quantity = parseInt($qtyInput.val()) ) : ( quantity = 1, $qtyInput.val('1') ); //set quantity
+	if ( $qtyInput.val() && !isNaN(+$qtyInput.val()) ) { 
+		quantity = +$qtyInput.val();
+	} else { 
+		quantity = 1;
+		$qtyInput.val('1'); 
+	}
 	product = $prodInput.val();
 
 	items.forEach(function(el) {
@@ -45,17 +50,23 @@ function calculatePrice( $row ) {
 	});
 }
 
-// function setQuantity() {
-// 	//on keyup, get value
-// 	//if invalid, alert user
-// 	//if valid new value, calculate new price
-// 	//if old value, do nothing
-// 	var quantity;
-// 	$('.list__quantity input').keyup(function() {
-// 		if ()
-// 		log('quant');
-// 	});
-// }
+function clearPrice( $row ) {
+	$row.find('.list__price').children('input').val('');
+}
+
+function setQuantity() {
+	$('.list__quantity input').keyup(function() {
+		var quantity = $(this).val();
+		var $row = $(this).closest('div[class^=row]');
+		if ( quantity.length && !isNaN(+quantity) ) {
+			if ( $row.find('.list__product').children('input').val().length ) {
+				calculatePrice($row);
+			}
+		} else {
+			clearPrice( $row );
+		}
+	});
+}
 
 function enableLineItemClick( $itemsList ) {
 	$itemsList.find('li').off();
@@ -74,12 +85,14 @@ function setPredictiveType() {
 	are items in the list, attach click event handlers to them; if there aren't any items or you've deleted
 	the text in the input, remove the list */
 	$('.list__product input').keyup(function() {
+		var $row = $(this).closest('div[class^=row]');
 		var $itemsList = $(this).parent().siblings('ul'); //reference to product list
 		var val = $(this).val(); //value of product text field
 
 		if ( val.length > 0 ) { 
 			$itemsList.empty().addClass('is-matched').css('width', $(this).parent().width()).css('display', 'block');
 			items.forEach(function(el) {
+				// if ( el.product ===  )
 				if ( el.product.indexOf(val) > -1 ) { //find matching characters
 					var firstMatchingCharIndex = el.product.indexOf(val);
 					var lastMatchingCharIndex = firstMatchingCharIndex + val.length - 1;
@@ -100,7 +113,10 @@ function setPredictiveType() {
 			});
 			if ( $itemsList.children().length ) { enableLineItemClick( $itemsList ); //attach click handler to items
 			} else { $itemsList.css('display', 'none').removeClass('is-matched').empty(); } //hide list
-		} else { $itemsList.css('display', 'none').removeClass('is-matched').empty(); } //hide list
+		} else { 
+			$itemsList.css('display', 'none').removeClass('is-matched').empty(); 
+			clearPrice( $row );
+		} //hide list
 
 	});
 }
@@ -109,6 +125,6 @@ function setPredictiveType() {
 $(document).ready(function() {
 	setPredictiveType();
 	setOnBlur();
-	// setQuantity();
+	setQuantity();
 });
 
