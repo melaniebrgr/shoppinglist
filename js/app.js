@@ -7,56 +7,16 @@ log('shopping list app');
 /* ----- APP ----- */
 var items;
 
-$.getJSON("js/items.json")
-	.done(function(data) {
+$.getJSON("js/items.json").done(function(data) {
 		items = data.items.sort(function(a, b) { //sort items alphabetically by product name
 			if (a.product < b.product) { return -1; }
 			if (a.product > b.product) { return 1; }
 			return 0;
 		});
-	});
+});
 
-function setOnBlur() {
-	$('.list__product input').blur(function() {
-		if ( !$(this).parent().siblings('ul').is(':hover') ) { 
-			$(this).parent().siblings('ul')
-				.css('display', 'none')
-				.removeClass('is-matched')
-				.empty();
-		}
-	});
-}
-
-// function calculateTotal() {
-// 	log('calculateTotal() fired');
-// 	$('list__price input').each(function() {
-// 		log('each');
-// 	});
-// }
-
-function calculatePrice( $row ) {
-	var quantity, product, price, itemData;
-	var $qtyInput = $row.find('.list__quantity').children('input');
-	var $priceInput = $row.find('.list__price').children('input');
-	var $prodInput = $row.find('.list__product').children('input');
-	
-	if ( $qtyInput.val() && !isNaN(+$qtyInput.val()) ) { 
-		quantity = +$qtyInput.val();
-	} else { 
-		quantity = 1;
-		$qtyInput.val('1'); 
-	}
-	product = $prodInput.val();
-
-	items.forEach(function(el) {
-		if ( el.product === product ) { 
-			itemData = el;
-			price = el.ppUnit*quantity;
-			$priceInput.val(price);
-			// calculateTotal();
-			return;
-		}
-	});
+function isNumber( num ) {
+	return typeof num === 'number' && isFinite(num);
 }
 
 function clearPrice( $row ) {
@@ -64,92 +24,165 @@ function clearPrice( $row ) {
 	// calculateTotal();
 }
 
-function setQuantity() {
-	$('.list__quantity input').keyup(function() {
-		var quantity = $(this).val();
-		var $row = $(this).closest('div[class^=row]');
-		if ( quantity.length && !isNaN(+quantity) ) {
-			if ( $row.find('.list__product').children('input').val().length ) {
-				calculatePrice($row);
-			}
+function clearQuantity( $row ) {
+	$row.find('.list__quantity').children('input').val('');
+}
+
+function closeItemsList( list ) {
+	list.css('display', 'none').removeClass('is-matched').empty(); 
+}
+
+function calculateTotal() {
+	//when called, get all the price input values
+	//if they are empty strings, set to 0
+	//coerce the others to numbers
+	//sum together
+	//set total to sum
+}
+
+function formatPrice( price ) {
+	//given price, return a number to two decimal places
+}
+
+function getPrice( item, quantity ) {
+	//validate quantity input if its a number
+	//determines if Kg indicated
+	//returns object with quantity and ppU/ppKg
+	var priceData = {
+		amount: 0,
+		multiplier: 0
+	};
+
+	var amount = +quantity.match(/\d*\.?\d*/)[0];
+	if ( isNumber(amount) ) { 
+			priceData.amount = amount;
+		if ( quantity.indexOf('kg') === -1 ) {
+			priceData.multiplier = item.ppUnit;
 		} else {
-			clearPrice( $row );
+			priceData.multiplier = item.ppKilo;
+		}
+	} else {
+		alert("You must enter a number or weight in kilograms");
+	}
+	return priceData.amount * priceData.multiplier;
+}
+
+function setPrice( $row ) {
+	var quantity, product, price;
+	var $qtyInput = $row.find('.list__quantity').children('input');
+	var $priceInput = $row.find('.list__price').children('input');
+	var $prodInput = $row.find('.list__product').children('input');
+	$qtyInput.val() === "" ? ( quantity = "1", $qtyInput.val(quantity) ) : ( quantity = $qtyInput.val() );
+	product = $prodInput.val();
+
+	items.forEach(function(el) {
+		if ( el.product === product ) {
+			price = getPrice( el, quantity );
+			return;
+		}
+	});
+
+	$priceInput.val( price );
+	// calculateTotal();
+}
+
+function handleListBlur() {
+	$('.list__product input').blur(function() {
+		var $itemsList = $(this).parent().siblings('ul');
+		if ( !$itemsList.is(':hover') ) { 
+			closeItemsList( $itemsList );
 		}
 	});
 }
 
-function enableLineItemClick( $itemsList ) {
+function handleQuantity() {
+	$('.list__quantity input').keyup(function() {
+		var $row = $(this).closest('div[class^=row]');
+		var quantity = $(this).val();
+		var product = $row.find('.list__product').children('input').val();
+		if (quantity.length && product.length) {
+			setPrice($row);
+		} else {
+			clearPrice($row);
+		}
+	});
+}
+
+function handleLineItemClick( $itemsList ) {
+	//remove any present event handlers
+	//set product input value to clicked item
+	//hide the items list
+	//set the price for this row
 	$itemsList.find('li').off();
 	$itemsList.find('li').click(function() {
 		var $row = $(this).closest('div[class^=row]');
 		var $products = $row.find('.list__product');
-		$products.children('input').val( $(this).text() ); //set product name
-		$products.siblings('ul').css('display', 'none').removeClass('is-matched').empty(); //hide list
-		calculatePrice( $row );
+		$products.children('input').val($(this).text());
+		closeItemsList($products.siblings('ul'));
+		setPrice($row);
 	});
 }
 
+function formatItemStr( item, product ) {
+	//takes matching array element, and product input value
+	//returns formated string
+	var firstMatchingCharIndex = item.product.indexOf(product);
+	var lastMatchingCharIndex = firstMatchingCharIndex + product.length - 1;
+	var productCharArr = item.product.split('');
+	var formattedStr = '';
+
+	productCharArr.forEach(function(el, i) {
+		if ( i === (firstMatchingCharIndex) ) {
+			formattedStr += '<span class="is-matching-char">' + el;
+			if ( product.length === 1 ) { formattedStr += '</span>'; }
+		} else if ( i === (lastMatchingCharIndex) ) {
+			formattedStr += el + '</span>';
+		} else {
+			formattedStr += el;
+		}
+	});	
+	return formattedStr;
+}
+
 function setPredictiveType() {
-	/*  On keyup, check if there is any input, if so, display the items list, then look through the 
-	array of items and display any matching products in the list (format so match is bolded). After that, if there
-	are items in the list, attach click event handlers to them; if there aren't any items or you've deleted
-	the text in the input, remove the list */
+	//On keyup, check if there is any input in the product field
+	//If there is, display the items list
+	//then look through the array of items and display any matching products in the list 
+	//matching characters are bolded
+	//if there are items in the list, attach click event handlers to them; 
+	// if there aren't any items or you've deleted the text in the input, remove the items list
 	$('.list__product input').keyup(function() {
 		var $row = $(this).closest('div[class^=row]');
-		var $itemsList = $(this).parent().siblings('ul'); //reference to product list
-		var product = $(this).val(); //value of product text field
-		function closeItemsList() {
-			$itemsList.css('display', 'none').removeClass('is-matched').empty(); 
-		}
+		var $itemsList = $(this).parent().siblings('ul');
+		var product = $(this).val();
+		var productLineWidth = $(this).parent().width();
 
 		if ( product.length > 0 ) { 
 			$itemsList.empty();
-
 			items.forEach(function(el) {
-				if ( el.product.indexOf(product) > -1 ) {
-					$itemsList.addClass('is-matched').css('width', $(this).parent().width()).css('display', 'block');
-					var firstMatchingCharIndex = el.product.indexOf(product);
-					var lastMatchingCharIndex = firstMatchingCharIndex + product.length - 1;
-					var productCharArr = el.product.split('');
-					var highlightedStr = '';
-					productCharArr.forEach(function(el, i) {
-						if ( i === (firstMatchingCharIndex) ) {
-							highlightedStr += '<span class="is-matching-char">' + el;
-							if ( product.length === 1 ) { highlightedStr += '</span>'; }
-						} else if ( i === (lastMatchingCharIndex) ) {
-							highlightedStr += el + '</span>';
-						} else {
-							highlightedStr += el;
-						}
-					});
-					$itemsList.append('<li>' + highlightedStr + '</li>');
-				}
 				if ( el.product === product ) {
-					calculatePrice( $row );
-					// closeItemsList(); //wierd behaviour if close on match
+					setPrice($row);
+					closeItemsList($itemsList);
 					return;
 				}
+				if ( el.product.indexOf(product) > -1 ) {
+					$itemsList.addClass('is-matched').css('width', productLineWidth).css('display', 'block');
+					$itemsList.append('<li>' + formatItemStr(el,product) + '</li>');
+				}
 			});
-
-			if ( $itemsList.children().length ) { 
-				enableLineItemClick( $itemsList ); //attach click handler to items
-			} else { 
-				closeItemsList();
-				clearPrice( $row );
-			}
-
+			if ( $itemsList.children().length ) { handleLineItemClick($itemsList); }
 		} else { 
-			closeItemsList();
-			clearPrice( $row );
+			closeItemsList($itemsList);
+			clearPrice($row);
+			clearQuantity($row);
 		}
-
 	});
 }
 
 /* ----- DOC READY ----- */
 $(document).ready(function() {
 	setPredictiveType();
-	setOnBlur();
-	setQuantity();
+	handleListBlur();
+	handleQuantity();
 });
 
