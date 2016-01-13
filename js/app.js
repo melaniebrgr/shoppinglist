@@ -2,7 +2,7 @@
 function log(m) {
 	console.log(m);
 }
-log('shopping list app');
+log('');
 
 /* ----- APP ----- */
 var items;
@@ -45,8 +45,8 @@ function formatPrice( price ) {
 }
 
 function getPrice( item, quantity ) {
-	//validate quantity input if its a number
-	//determines if Kg indicated
+	//validate quantity input is a number
+	//determines if kg is included
 	//returns object with quantity and ppU/ppKg
 	var priceData = {
 		amount: 0,
@@ -56,7 +56,7 @@ function getPrice( item, quantity ) {
 	var amount = +quantity.match(/\d*\.?\d*/)[0];
 	if ( isNumber(amount) ) { 
 			priceData.amount = amount;
-		if ( quantity.indexOf('kg') === -1 ) {
+		if ( /([kK][gG][sS]?)$/.test(quantity) ) {
 			priceData.multiplier = item.ppUnit;
 		} else {
 			priceData.multiplier = item.ppKilo;
@@ -95,7 +95,7 @@ function handleListBlur() {
 	});
 }
 
-function handleQuantity() {
+function handleQuantityInput() {
 	$('.list__quantity input').keyup(function() {
 		var $row = $(this).closest('div[class^=row]');
 		var quantity = $(this).val();
@@ -183,6 +183,6 @@ function setPredictiveType() {
 $(document).ready(function() {
 	setPredictiveType();
 	handleListBlur();
-	handleQuantity();
+	handleQuantityInput();
 });
 
