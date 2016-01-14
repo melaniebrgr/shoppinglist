@@ -52,11 +52,14 @@
 	li {
 		padding: em(4px) em(12px);
 		&:hover {
-			background: $eggshell;
-			cursor: pointer;
+			@include highlightListItem;
 		}
 	}
 }
 .is-matching-char {
 	font-weight: 700;
+}
+
+.is-highlighted-li {
+	@include highlightListItem;
 }

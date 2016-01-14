@@ -170,7 +170,10 @@ function setPredictiveType() {
 	//matching characters are bolded
 	//if there are items in the list, attach click event handlers to them; 
 	// if there aren't any items or you've deleted the text in the input, remove the items list
-	$('.list__product input').keyup(function() {
+
+	var downArrowCount = -1;
+
+	$('.list__product input').keyup(function(e) {
 		var $row = $(this).closest('div[class^=row]');
 		var $itemsList = $(this).parent().siblings('ul');
 		var product = $(this).val();
@@ -190,7 +193,23 @@ function setPredictiveType() {
 					$itemsList.append('<li>' + formatItemStr(el,product) + '</li>');
 				}
 			}
-			if ( $itemsList.children().length ) { handleLineItemClick($itemsList); }
+			if ( $itemsList.children().length ) { 
+				handleLineItemClick($itemsList);
+				if ( e.which === 13 && downArrowCount > -1 ) {
+					log($itemsList.children());
+				}
+				if ( e.which === 40 ) {
+					$itemsList.children().eq( downArrowCount ).removeClass('is-highlighted-li');
+					downArrowCount++;
+					$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
+				} else if ( e.which === 38 ) {
+					$itemsList.children().eq( downArrowCount ).removeClass('is-highlighted-li');
+					downArrowCount === -1 ? downArrowCount = -1 : downArrowCount--;
+					$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
+				} else { 
+					// downArrowCount = -1;
+				}
+			}
 		} else { 
 			closeItemsList($itemsList);
 			clearPrice($row);

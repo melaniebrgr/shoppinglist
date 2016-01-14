@@ -480,6 +480,10 @@ textarea, input {
 .is-matching-char {
   font-weight: 700; }
 
+.is-highlighted-li {
+  background: #f5f5f5;
+  cursor: pointer; }
+
 .total {
   text-align: center; }
   .total div[class*='row'] {

@@ -16,6 +16,10 @@ $border: $lightGrey 1px solid;
 @mixin shadow {
 	box-shadow: 0 10px 30px 0 rgba($darkGrey, 0.1);
 }
+@mixin highlightListItem {
+	background: $eggshell;
+	cursor: pointer;
+}
 
 //functions
 @function em($px, $context: $browser-context) {
