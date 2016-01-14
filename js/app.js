@@ -19,6 +19,27 @@ function isNumber( num ) {
 	return typeof num === 'number' && isFinite(num);
 }
 
+function toTwoDecimals( num ) {
+	return num.toFixed(2);
+}
+
+function calculateTotal() {
+	//when called, get all the price input values
+	//coerce to numbers, check if number
+	//sum together
+	//update total
+	var sum = 0;
+	var $priceInputs = $('.list__price input');
+
+	$priceInputs.each(function() {
+		var inputVal = +$(this).val();
+		if ( isNumber(inputVal) ) {
+			sum += inputVal;
+		}
+	});
+	sum ? $('.total__price').text("$" + toTwoDecimals(sum) ) : $('.total__price').text("$" + 0);
+}
+
 function clearPrice( $row ) {
 	$row.find('.list__price').children('input').val('');
 	calculateTotal();
@@ -30,27 +51,6 @@ function clearQuantity( $row ) {
 
 function closeItemsList( list ) {
 	list.css('display', 'none').removeClass('is-matched').empty(); 
-}
-
-function calculateTotal() {
-	//when called, get all the price input values
-	//coerce to numbers, check if number
-	//sum together
-	//update total
-	var sum = 0;
-	var $priceInputs = $('.list__price input');
-
-	$priceInputs.each(function(i) {
-		var inputVal = +$(this).val();
-		if ( isNumber(inputVal) ) {
-			sum += inputVal;
-		}
-	});
-	$('.total__price').text("$" + sum);
-}
-
-function formatPrice( price ) {
-	//given price, return a number to two decimal places
 }
 
 function getPrice( item, quantity ) {
@@ -73,7 +73,7 @@ function getPrice( item, quantity ) {
 	} else {
 		alert("You must enter a number or weight in kilograms");
 	}
-	return priceData.amount * priceData.multiplier;
+	return toTwoDecimals(priceData.amount * priceData.multiplier);
 }
 
 function setPrice( $row ) {
@@ -90,7 +90,7 @@ function setPrice( $row ) {
 			return;
 		}
 	});
-	$priceInput.val( price );
+	$priceInput.val(price);
 	calculateTotal();
 }
 
@@ -113,6 +113,17 @@ function handleQuantityInput() {
 		} else {
 			clearPrice($row);
 		}
+	});
+}
+
+function handlePriceInput() {
+	$('.list__price input').keydown(function(e) {
+		if (e.which === 9) {
+			$(this).val( toTwoDecimals( +$(this).val() ) );
+		}
+	});
+	$('.list__price input').keyup(function() {
+		calculateTotal();
 	});
 }
 
@@ -152,7 +163,6 @@ function formatItemStr( item, product ) {
 	return formattedStr;
 }
 
-var BreakException= {};
 function setPredictiveType() {
 	//On keyup, check if there is any input in the product field
 	//If there is, display the items list
@@ -194,5 +204,6 @@ $(document).ready(function() {
 	setPredictiveType();
 	handleListBlur();
 	handleQuantityInput();
+	handlePriceInput();
 });
 

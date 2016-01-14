@@ -503,4 +503,5 @@ textarea, input {
     .total--theme1 > div:last-child .total__price::first-letter {
       color: #404040;
       font-size: 0.4444444444em;
-      font-weight: 300; }
+      font-weight: 300;
+      margin-right: 2px; }
