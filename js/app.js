@@ -42,9 +42,7 @@ function calculateTotal() {
 
 	$priceInputs.each(function(i) {
 		var inputVal = +$(this).val();
-		log("value "+ i + ": " + inputVal);
 		if ( isNumber(inputVal) ) {
-			log("passed conditional: "+inputVal);
 			sum += inputVal;
 		}
 	});
@@ -92,7 +90,6 @@ function setPrice( $row ) {
 			return;
 		}
 	});
-
 	$priceInput.val( price );
 	calculateTotal();
 }
@@ -155,6 +152,7 @@ function formatItemStr( item, product ) {
 	return formattedStr;
 }
 
+var BreakException= {};
 function setPredictiveType() {
 	//On keyup, check if there is any input in the product field
 	//If there is, display the items list
@@ -170,17 +168,18 @@ function setPredictiveType() {
 
 		if ( product.length > 0 ) { 
 			$itemsList.empty();
-			items.forEach(function(el) {
+			for(var i = 0; i < items.length; i++) {
+				var el = items[i];
 				if ( el.product === product ) {
 					setPrice($row);
 					closeItemsList($itemsList);
-					return;
+					break;
 				}
 				if ( el.product.indexOf(product) > -1 ) {
 					$itemsList.addClass('is-matched').css('width', productLineWidth).css('display', 'block');
 					$itemsList.append('<li>' + formatItemStr(el,product) + '</li>');
 				}
-			});
+			}
 			if ( $itemsList.children().length ) { handleLineItemClick($itemsList); }
 		} else { 
 			closeItemsList($itemsList);
