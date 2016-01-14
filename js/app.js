@@ -21,7 +21,7 @@ function isNumber( num ) {
 
 function clearPrice( $row ) {
 	$row.find('.list__price').children('input').val('');
-	// calculateTotal();
+	calculateTotal();
 }
 
 function clearQuantity( $row ) {
@@ -34,10 +34,21 @@ function closeItemsList( list ) {
 
 function calculateTotal() {
 	//when called, get all the price input values
-	//if they are empty strings, set to 0
-	//coerce the others to numbers
+	//coerce to numbers, check if number
 	//sum together
-	//set total to sum
+	//update total
+	var sum = 0;
+	var $priceInputs = $('.list__price input');
+
+	$priceInputs.each(function(i) {
+		var inputVal = +$(this).val();
+		log("value "+ i + ": " + inputVal);
+		if ( isNumber(inputVal) ) {
+			log("passed conditional: "+inputVal);
+			sum += inputVal;
+		}
+	});
+	$('.total__price').text("$" + sum);
 }
 
 function formatPrice( price ) {
@@ -57,9 +68,9 @@ function getPrice( item, quantity ) {
 	if ( isNumber(amount) ) { 
 			priceData.amount = amount;
 		if ( /([kK][gG][sS]?)$/.test(quantity) ) {
-			priceData.multiplier = item.ppUnit;
-		} else {
 			priceData.multiplier = item.ppKilo;
+		} else {
+			priceData.multiplier = item.ppUnit;
 		}
 	} else {
 		alert("You must enter a number or weight in kilograms");
@@ -83,7 +94,7 @@ function setPrice( $row ) {
 	});
 
 	$priceInput.val( price );
-	// calculateTotal();
+	calculateTotal();
 }
 
 function handleListBlur() {
