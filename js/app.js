@@ -195,19 +195,25 @@ function setPredictiveType() {
 			}
 			if ( $itemsList.children().length ) { 
 				handleLineItemClick($itemsList);
-				if ( e.which === 13 && downArrowCount > -1 ) {
-					log($itemsList.children());
-				}
 				if ( e.which === 40 ) {
 					$itemsList.children().eq( downArrowCount ).removeClass('is-highlighted-li');
 					downArrowCount++;
 					$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
-				} else if ( e.which === 38 ) {
+				}
+				if ( e.which === 38 ) {
 					$itemsList.children().eq( downArrowCount ).removeClass('is-highlighted-li');
 					downArrowCount === -1 ? downArrowCount = -1 : downArrowCount--;
 					$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
-				} else { 
-					// downArrowCount = -1;
+				}
+				if ( e.which === 13 && downArrowCount > -1 ) {
+				    e.preventDefault();
+					$(this).val( $itemsList.children().eq( downArrowCount ).text() );
+					setPrice($row);
+					closeItemsList($itemsList);
+					downArrowCount = -1;
+				}
+				if ( e.which !== 40 && e.which !== 38 && e.which !== 13 ) {
+					downArrowCount = -1;
 				}
 			}
 		} else { 
