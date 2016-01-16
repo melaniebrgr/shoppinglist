@@ -433,6 +433,18 @@ textarea, input {
     letter-spacing: 0.25em;
     text-transform: uppercase; }
 
+.instructions {
+  position: absolute;
+  z-index: -1;
+  margin: 1.5em; }
+  .instructions p {
+    margin: 0.25em 0; }
+
+.instructions--theme1 {
+  font-size: 0.6875em;
+  font-style: italic;
+  color: #cccccc; }
+
 .list {
   padding: 2em 4.5em 0em 4.5em; }
   .list span[class^='list__'] {

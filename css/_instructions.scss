@@ -1,0 +1,13 @@
+.instructions {
+	position: absolute;
+	z-index: -1;
+	margin: em(24px);
+	p {
+		margin: em(4px) 0;
+	}
+}
+.instructions--theme1 {
+	font-size: em(11px);
+	font-style: italic;
+	color: $lightGrey;
+}
