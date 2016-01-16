@@ -104,13 +104,16 @@ function handleListBlur() {
 }
 
 function handleQuantityInput() {
+	// $('.list__quantity input').keydown(function(e) {
+	// 	if (e.which === 9 ) { e.preventDefault(); }
+	// });
 	$('.list__quantity input').keyup(function() {
 		var $row = $(this).closest('div[class^=row]');
 		var quantity = $(this).val();
 		var product = $row.find('.list__product').children('input').val();
 		if (quantity.length && product.length) {
 			setPrice($row);
-		} else {
+		} else if ( quantity.length === 0 ) {
 			clearPrice($row);
 		}
 	});
@@ -216,10 +219,41 @@ function setPredictiveType() {
 		} else { 
 			closeItemsList($itemsList);
 			clearPrice($row);
-			clearQuantity($row);
 		}
 	});
 }
+
+function handleAddRow() {
+	//attach event listener to last row input fields
+	//whenever they lose focus, check to see if the other input fields are full
+	//if they are full, add a new empty row
+	//detach listener from old row, attach to new
+	var $lastRow = $('.list > .row').last();
+	$lastRow.focusout(function() {
+		var inputArr = [];
+		$(this).find('input').each(function(i, selected) {
+			if ( $(selected).val().length ) { inputArr[i] = $(selected).val(); }
+		});
+		if ( inputArr.length === 3 ) {
+			log('add another row');
+		}
+	});
+}
+
+
+// function crossOffItem() {
+// 	log('swipe left');
+// 	$( event.target ).addClass('is-crossed-off');
+// }
+
+// function deleteItem() {
+// 	log('swipe right');
+// }
+
+// function handleSwipeItem() {
+// 	$('.list .row').on('swipeleft', crossOffItem);
+// 	$('.list .row').on('swiperight', deleteItem);
+// }
 
 /* ----- DOC READY ----- */
 $(document).ready(function() {
@@ -227,5 +261,7 @@ $(document).ready(function() {
 	handleListBlur();
 	handleQuantityInput();
 	handlePriceInput();
+	handleAddRow();
+	// handleSwipeItem();
 });
 
