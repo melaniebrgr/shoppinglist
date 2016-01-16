@@ -457,6 +457,7 @@ textarea, input {
 
 .is-crossed-off {
   color: #b0a9a7;
+  font-style: italic;
   text-decoration: line-through; }
 
 .is-matched {

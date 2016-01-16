@@ -24,25 +24,6 @@ function toTwoDecimals( num ) {
 	return num.toFixed(2);
 }
 
-function calculateTotal() {
-	//when called, get all the price input values
-	//coerce to number
-	//check if number
-	//sum together
-	//update total
-	var sum = 0;
-	var $priceInputs = $('.list__price input');
-
-	$priceInputs.each(function() {
-		var inputVal = +$(this).val();
-		if ( isNumber(inputVal) ) {
-			sum += inputVal;
-		}
-	});
-	sum ? $('.total__price').text("$" + toTwoDecimals(sum) ) : $('.total__price').text("$" + 0);
-	addRow();
-}
-
 function clearPrice( $row ) {
 	$row.find('.list__price').children('input').val('');
 	calculateTotal();
@@ -224,6 +205,8 @@ function setPredictiveType() {
 	});
 }
 
+
+
 function addRow() {
 	//attach event listener to last row input fields
 	//whenever they lose focus, check to see if all the other input fields are full
@@ -238,15 +221,53 @@ function addRow() {
 	}
 }
 
+function calculateTotal( itemToSubtract ) {
+	//when called, get all the price input values
+	//coerce to number
+	//check if number
+	//sum together
+	//update total
+	var sum = 0;
+	var $priceInputs = $('.list__price input');
+
+	$priceInputs.each(function() {
+		var inputVal = +$(this).val();
+		if ( isNumber(inputVal) ) {
+			sum += inputVal;
+		}
+	});
+	sum ? $('.total__price').text("$" + toTwoDecimals(sum) ) : $('.total__price').text("$" + 0);
+	addRow();
+}
+
 function handleSwipeItem() {
 	//track x position when mousedown
 	//track x position when mouseup 
 	//calc which direction, give wiggle room: 
 		// dx > 20 right
 		// dx < -20 left
-	var x1, x2, dx;
-	$('.list .row').mousedown();
-	$('.list .row').mouseup();
+	$('.list .row').mousedown(function(e) {
+		var self = this;
+		var x1 = e.pageX;
+		$('body').mouseup(function(e) {
+			var x2 = e.pageX;
+			var dx = x2 - x1;
+			log(dx);
+			if ( dx > 30 ) {
+				$(self).find('input').toggleClass('is-crossed-off');
+
+			} else if ( dx < -30 ) {
+				$(self).find('input').toggleClass('is-crossed-off');
+			}
+			$('body').off('mouseup');
+		});	
+	});
+}
+
+function handleDeleteItem() {
+	$('.list .row').dblclick(function() {
+		//do something
+	});
 }
 
 /* ----- DOC READY ----- */
@@ -255,8 +276,8 @@ $(document).ready(function() {
 	handleListBlur();
 	handleQuantityInput();
 	handlePriceInput();
-	handleAddRow();
 	$('.list .row').last().focusout(addRow);
-	// handleSwipeItem();
+	handleSwipeItem();
+	handleDeleteItem();
 });
 
