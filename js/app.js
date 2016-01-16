@@ -282,6 +282,7 @@ function handleDeleteItem() {
 
 /* ----- DOC READY ----- */
 $(document).ready(function() {
+	$('.list .row').first().find('.list__quantity input').focus();
 	setPredictiveType();
 	handleListBlur();
 	handleQuantityInput();
