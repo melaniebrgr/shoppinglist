@@ -218,10 +218,11 @@ function addRow() {
 	if ( inputArr.length === 3 ) {
 		$('#template').find('.row').clone().appendTo('.list');
 		setPredictiveType();
+		handleDeleteItem();
 	}
 }
 
-function calculateTotal( itemToSubtract ) {
+function calculateTotal( rowWithItemToSubtract ) {
 	//when called, get all the price input values
 	//coerce to number
 	//check if number
@@ -229,6 +230,8 @@ function calculateTotal( itemToSubtract ) {
 	//update total
 	var sum = 0;
 	var $priceInputs = $('.list__price input');
+	var amountToSubtract = +$(rowWithItemToSubtract).find('.list__price input').val();
+	if ( !isNumber(amountToSubtract) ) { amountToSubtract = 0; } 
 
 	$priceInputs.each(function() {
 		var inputVal = +$(this).val();
@@ -236,7 +239,7 @@ function calculateTotal( itemToSubtract ) {
 			sum += inputVal;
 		}
 	});
-	sum ? $('.total__price').text("$" + toTwoDecimals(sum) ) : $('.total__price').text("$" + 0);
+	sum ? $('.total__price').text("$" + toTwoDecimals(sum - amountToSubtract) ) : $('.total__price').text("$" + 0);
 	addRow();
 }
 
@@ -249,15 +252,18 @@ function handleSwipeItem() {
 	$('.list .row').mousedown(function(e) {
 		var self = this;
 		var x1 = e.pageX;
+		var y1 = e.pageY;
 		$('body').mouseup(function(e) {
 			var x2 = e.pageX;
+			var y2 = e.pageY;
 			var dx = x2 - x1;
-			log(dx);
-			if ( dx > 30 ) {
-				$(self).find('input').toggleClass('is-crossed-off');
-
-			} else if ( dx < -30 ) {
-				$(self).find('input').toggleClass('is-crossed-off');
+			var dy = y2 - y1;
+			if ( dx > 30 && Math.abs(dy) < 10 ) {
+				$(self).find('input').addClass('is-crossed-off');
+				calculateTotal( self );
+			} else if ( dx < -30 && Math.abs(dy) < 10 ) {
+				$(self).find('input').removeClass('is-crossed-off');
+				calculateTotal();
 			}
 			$('body').off('mouseup');
 		});	
@@ -266,7 +272,11 @@ function handleSwipeItem() {
 
 function handleDeleteItem() {
 	$('.list .row').dblclick(function() {
-		//do something
+		log($('.list .row').length);
+		if ( $('.list .row').length > 1 ) { 
+			$(this).remove();
+			calculateTotal();
+		}
 	});
 }
 
