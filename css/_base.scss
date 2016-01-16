@@ -16,5 +16,9 @@ textarea, input { outline: none; }
 	bottom: 0;
 	right: 0;
 	position: absolute;
-	overflow: hidden
+	overflow: auto;
+}
+
+.is-hidden {
+	display: none;
 }

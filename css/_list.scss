@@ -1,5 +1,5 @@
 .list {
-	padding: 2em 4.5em 1.2em 4.5em;
+	padding: 2em 4.5em 0em 4.5em;
 
 	span[class^='list__'] {
 		display: inline-block;
@@ -30,13 +30,10 @@
 }
 
 .is-crossed-off {
-	.list__quantity, .list__product, .list__price {
-		input {
-			color: $lightGreyBrown;
-			text-decoration: line-through;
-		}
-	}
+	color: $lightGreyBrown;
+	text-decoration: line-through;
 }
+
 .is-matched {
 	background: $white;
 	border: $border;

@@ -8,7 +8,8 @@ log('');
 var items;
 
 $.getJSON("js/items.json").done(function(data) {
-		items = data.items.sort(function(a, b) { //sort items alphabetically by product name
+		//sort items alphabetically by product name
+		items = data.items.sort(function(a, b) { 
 			if (a.product < b.product) { return -1; }
 			if (a.product > b.product) { return 1; }
 			return 0;
@@ -25,7 +26,8 @@ function toTwoDecimals( num ) {
 
 function calculateTotal() {
 	//when called, get all the price input values
-	//coerce to numbers, check if number
+	//coerce to number
+	//check if number
 	//sum together
 	//update total
 	var sum = 0;
@@ -38,6 +40,7 @@ function calculateTotal() {
 		}
 	});
 	sum ? $('.total__price').text("$" + toTwoDecimals(sum) ) : $('.total__price').text("$" + 0);
+	addRow();
 }
 
 function clearPrice( $row ) {
@@ -95,6 +98,7 @@ function setPrice( $row ) {
 }
 
 function handleListBlur() {
+	// try to grab matching is-highlighted-li (modify setPredictiveType)?
 	$('.list__product input').blur(function() {
 		var $itemsList = $(this).parent().siblings('ul');
 		if ( !$itemsList.is(':hover') ) { 
@@ -104,9 +108,6 @@ function handleListBlur() {
 }
 
 function handleQuantityInput() {
-	// $('.list__quantity input').keydown(function(e) {
-	// 	if (e.which === 9 ) { e.preventDefault(); }
-	// });
 	$('.list__quantity input').keyup(function() {
 		var $row = $(this).closest('div[class^=row]');
 		var quantity = $(this).val();
@@ -223,37 +224,30 @@ function setPredictiveType() {
 	});
 }
 
-function handleAddRow() {
+function addRow() {
 	//attach event listener to last row input fields
-	//whenever they lose focus, check to see if the other input fields are full
+	//whenever they lose focus, check to see if all the other input fields are full
 	//if they are full, add a new empty row
-	//detach listener from old row, attach to new
-	var $lastRow = $('.list > .row').last();
-	$lastRow.focusout(function() {
-		var inputArr = [];
-		$(this).find('input').each(function(i, selected) {
-			if ( $(selected).val().length ) { inputArr[i] = $(selected).val(); }
-		});
-		if ( inputArr.length === 3 ) {
-			log('add another row');
-		}
+	var inputArr = [];
+	$('.list .row').last().find('input').each(function(i, selected) {
+		if ( $(selected).val().length ) { inputArr[i] = $(selected).val(); }
 	});
+	if ( inputArr.length === 3 ) {
+		$('#template').find('.row').clone().appendTo('.list');
+		setPredictiveType();
+	}
 }
 
-
-// function crossOffItem() {
-// 	log('swipe left');
-// 	$( event.target ).addClass('is-crossed-off');
-// }
-
-// function deleteItem() {
-// 	log('swipe right');
-// }
-
-// function handleSwipeItem() {
-// 	$('.list .row').on('swipeleft', crossOffItem);
-// 	$('.list .row').on('swiperight', deleteItem);
-// }
+function handleSwipeItem() {
+	//track x position when mousedown
+	//track x position when mouseup 
+	//calc which direction, give wiggle room: 
+		// dx > 20 right
+		// dx < -20 left
+	var x1, x2, dx;
+	$('.list .row').mousedown();
+	$('.list .row').mouseup();
+}
 
 /* ----- DOC READY ----- */
 $(document).ready(function() {
@@ -262,6 +256,7 @@ $(document).ready(function() {
 	handleQuantityInput();
 	handlePriceInput();
 	handleAddRow();
+	$('.list .row').last().focusout(addRow);
 	// handleSwipeItem();
 });
 

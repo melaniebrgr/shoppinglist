@@ -1,4 +1,6 @@
 .total {
+	@include padding;
+	padding-top: 0;
 	text-align: center;
 
 	div[class*='row'] {

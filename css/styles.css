@@ -384,15 +384,14 @@ textarea, input {
   bottom: 0;
   right: 0;
   position: absolute;
-  overflow: hidden; }
+  overflow: auto; }
+
+.is-hidden {
+  display: none; }
 
 .shopping-list {
   width: 48em;
-  margin: 0 auto;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%); }
+  margin: 3.125em auto; }
 
 .shopping-list--theme1 {
   background-color: #ffffff;
@@ -435,7 +434,7 @@ textarea, input {
     text-transform: uppercase; }
 
 .list {
-  padding: 2em 4.5em 1.2em 4.5em; }
+  padding: 2em 4.5em 0em 4.5em; }
   .list span[class^='list__'] {
     display: inline-block;
     width: 100%; }
@@ -456,7 +455,7 @@ textarea, input {
   border: none;
   font-size: 1.125em; }
 
-.is-crossed-off .list__quantity input, .is-crossed-off .list__product input, .is-crossed-off .list__price input {
+.is-crossed-off {
   color: #b0a9a7;
   text-decoration: line-through; }
 
@@ -485,6 +484,8 @@ textarea, input {
   cursor: pointer; }
 
 .total {
+  padding: 1.125em 4.5em;
+  padding-top: 0;
   text-align: center; }
   .total div[class*='row'] {
     height: auto;

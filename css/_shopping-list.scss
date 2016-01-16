@@ -1,10 +1,11 @@
 .shopping-list {
 	width: em(768px);
-	margin: 0 auto;
-	left: 50%;
-	position: absolute;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	// margin: 0 auto;
+	margin: em(50px) auto;
+	// left: 50%;
+	// position: absolute;
+	// top: 50%;
+	// transform: translate(-50%, -50%);
 }
 
 .shopping-list--theme1 {

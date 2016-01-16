@@ -28,14 +28,6 @@
 					</div>
 					<div class="col-sm"><span class="list__price">$<input type="text"></span></div>
 				</div>
-				<div class="row01">
-					<div class="col-sm"><span class="list__quantity"><input type="text"></span></div>
-					<div class="col-mid">
-						<span class="list__product"><input type="text"></span>
-						<ul></ul>
-					</div>
-					<div class="col-sm"><span class="list__price">$<input type="text"></span></div>
-				</div>
 				<div class="row">
 					<div class="col-sm"><span class="list__quantity"><input type="text"></span></div>
 					<div class="col-mid">
@@ -60,17 +52,38 @@
 					</div>
 					<div class="col-sm"><span class="list__price">$<input type="text"></span></div>
 				</div>
-				<div class="total total--theme1">
-					<div class="row">
-						<div class="col-sm">&nbsp;</div>
-						<div class="col-mid">&nbsp;</div>
-						<div class="col-sm"><h4>Total</h4></div>
+				<div class="row">
+					<div class="col-sm"><span class="list__quantity"><input type="text"></span></div>
+					<div class="col-mid">
+						<span class="list__product"><input type="text"></span>
+						<ul></ul>
 					</div>
-					<div><span class="total__price">$0</span></div>
+					<div class="col-sm"><span class="list__price">$<input type="text"></span></div>
 				</div>
 			</form>
+			<div class="total total--theme1 grid">
+				<div class="row">
+					<div class="col-sm">&nbsp;</div>
+					<div class="col-mid">&nbsp;</div>
+					<div class="col-sm"><h4>Total</h4></div>
+				</div>
+				<div><span class="total__price">$0</span></div>
+			</div>			
 		</div>	
 	</div>
+
+	<!--template-->
+	<div id="template" class="is-hidden">
+		<div class="row">
+			<div class="col-sm"><span class="list__quantity"><input type="text"></span></div>
+			<div class="col-mid">
+				<span class="list__product"><input type="text"></span>
+				<ul></ul>
+			</div>
+			<div class="col-sm"><span class="list__price">$<input type="text"></span></div>
+		</div>	
+	</div>
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/app.js"></script>
 </body>
