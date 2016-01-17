@@ -4,17 +4,22 @@
 	text-align: center;
 	overflow: hidden;
 
-	h1:before {
-		background-image: url(../img/logo-placeholder.png);
-	    background-repeat: no-repeat;
-		content: "";
-		display: block;
-		margin-left: -102px;
-		margin-top: -23px;
-		position: absolute;
-		width: em(92px, 32px);
-		height: em(92px, 32px);
-		z-index: 1;
+	h1 {
+		display: inline-block;
+		margin: em(12px) 0;
+
+		&:before {
+			background-image: url(../img/logo-placeholder.png);
+		    background-repeat: no-repeat;
+			content: "";
+			display: block;
+			margin-left: -102px;
+			margin-top: -23px;
+			position: absolute;
+			width: em(92px, 32px);
+			height: em(92px, 32px);
+			z-index: 1;
+		}
 	}
 	.categories {
 		.row { //the categories are in a grid
@@ -29,15 +34,46 @@
 	background-color: $eggshell;
 	border-bottom: $border;
 	h1 {
-		display: inline-block;
 		font-size: em(32px);
 		font-weight: 300;
-		margin: em(12px) 0;
 	}
 	.categories h4 {
 		font-size: em(12px);
 		font-weight: 300;
 		letter-spacing: em(3px, 12px);
 		text-transform: uppercase;
+	}
+}
+
+@media screen and (max-width: 645px) {
+	.header {
+		padding: em(18px) 3em 0 3em;
+	}
+}
+
+@media screen and (max-width: 554px) {
+	.header {
+		padding: em(18px) 1em 0 1em;
+	}
+}
+
+@media screen and (max-width: 445px) {
+	.header {
+		h1 {
+			font-size: em(28px);
+			margin: em(6px) 0;
+			h1:before {
+				background-image: url(../img/logo-placeholder.png); //switch to smaller image
+				margin-left: -75px;
+	    		margin-top: -8px;
+				width: em(60px, 32px);
+				height: em(60px, 32px);
+			}
+		}
+		.categories {
+			h4 {
+				font-size: em(10px);
+			}
+		}
 	}
 }

@@ -37,3 +37,15 @@
 		}
 	}
 }
+
+@media screen and (max-width: 645px) {
+	.total {
+		padding: 0 3em em(18px) 3em;
+	}
+}
+
+@media screen and (max-width: 554px) {
+	.total {
+		padding: 0 1em em(18px) 1em;
+	}
+}

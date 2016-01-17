@@ -1,7 +1,7 @@
 .shopping-list {
 	width: em(768px);
 	// margin: 0 auto;
-	margin: em(50px) auto;
+	margin: em(62px) auto;
 	// left: 50%;
 	// position: absolute;
 	// top: 50%;
@@ -12,4 +12,11 @@
 	background-color: $white;
 	border: $border;
 	@include shadow;
+}
+
+@media screen and (max-width: 767px) {
+	.shopping-list {
+		width: 100%;
+		margin: 0;
+	}
 }

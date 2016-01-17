@@ -19,3 +19,17 @@
 		}
 	}
 }
+
+@media screen and (max-width: 445px) {
+	.grid {
+		div[class*='row'] {
+			.col-sm {
+				width: 22.5%;
+			}
+			.col-mid {
+				position: relative;
+				width: 55%;
+			}			
+		}
+	}
+}

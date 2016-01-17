@@ -1,0 +1,36 @@
+.is-crossed-off {
+	color: $lightGreyBrown;
+	font-style: italic;
+	text-decoration: line-through;
+}
+
+.is-matched {
+	background: $white;
+	border: $border;
+	border-top: none;
+	box-shadow: 0 1px 3px 0 $lightGrey;
+	display: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+
+	li {
+		padding: em(4px) em(12px);
+		&:hover {
+			@include highlightListItem;
+		}
+	}
+}
+.is-matching-char {
+	font-weight: 700;
+}
+
+.is-highlighted-li {
+	@include highlightListItem;
+}
+
+.is-hidden {
+	display: none;
+}
