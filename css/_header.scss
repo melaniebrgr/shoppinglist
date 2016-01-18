@@ -9,15 +9,15 @@
 		margin: em(12px) 0;
 
 		&:before {
-			background-image: url(../img/logo-placeholder.png);
+			background-image: url(../img/cart-icon.svg);
 		    background-repeat: no-repeat;
 			content: "";
 			display: block;
 			margin-left: -102px;
 			margin-top: -23px;
 			position: absolute;
-			width: em(92px, 32px);
-			height: em(92px, 32px);
+			width: em(90px, 32px);
+			height: em(90px, 32px);
 			z-index: 1;
 		}
 	}
@@ -62,9 +62,8 @@
 		h1 {
 			font-size: em(28px);
 			margin: em(6px) 0;
-			h1:before {
-				background-image: url(../img/logo-placeholder.png); //switch to smaller image
-				margin-left: -75px;
+			&:before {
+			    margin-left: -63px;
 	    		margin-top: -8px;
 				width: em(60px, 32px);
 				height: em(60px, 32px);
@@ -73,6 +72,20 @@
 		.categories {
 			h4 {
 				font-size: em(10px);
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 370px) {
+	.header {
+		h1 {
+			&:before {
+				margin-left: -45px;
+			    margin-top: 1px;
+				width: em(42px, 32px);
+				height: em(42px, 32px);
+
 			}
 		}
 	}

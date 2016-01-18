@@ -414,15 +414,15 @@ textarea, input {
     display: inline-block;
     margin: 0.75em 0; }
     .header h1:before {
-      background-image: url(../img/logo-placeholder.png);
+      background-image: url(../img/cart-icon.svg);
       background-repeat: no-repeat;
       content: "";
       display: block;
       margin-left: -102px;
       margin-top: -23px;
       position: absolute;
-      width: 2.875em;
-      height: 2.875em;
+      width: 2.8125em;
+      height: 2.8125em;
       z-index: 1; }
   .header .categories .row {
     height: 0; }
@@ -449,13 +449,21 @@ textarea, input {
     padding: 1.125em 1em 0 1em; } }
 @media screen and (max-width: 445px) {
   .header h1 {
+    font-size: 1.75em;
     margin: 0.375em 0; }
-    .header h1 h1:before {
-      background-image: url(../img/logo-placeholder.png);
-      margin-left: -75px;
+    .header h1:before {
+      margin-left: -63px;
       margin-top: -8px;
       width: 1.875em;
-      height: 1.875em; } }
+      height: 1.875em; }
+  .header .categories h4 {
+    font-size: 0.625em; } }
+@media screen and (max-width: 370px) {
+  .header h1:before {
+    margin-left: -45px;
+    margin-top: 1px;
+    width: 1.3125em;
+    height: 1.3125em; } }
 .instructions {
   position: absolute;
   z-index: -1;
