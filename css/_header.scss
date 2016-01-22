@@ -13,8 +13,8 @@
 		    background-repeat: no-repeat;
 			content: "";
 			display: block;
-			margin-left: -102px;
-			margin-top: -23px;
+			margin-left: em(-102px, 32px);
+			margin-top: em(-23px, 32px);
 			position: absolute;
 			width: em(90px, 32px);
 			height: em(90px, 32px);
@@ -63,8 +63,8 @@
 			font-size: em(28px);
 			margin: em(6px) 0;
 			&:before {
-			    margin-left: -63px;
-	    		margin-top: -8px;
+			    margin-left: em(-63px, 28px);
+	    		margin-top: em(-8px, 28px);
 				width: em(60px, 32px);
 				height: em(60px, 32px);
 			}
@@ -81,8 +81,8 @@
 	.header {
 		h1 {
 			&:before {
-				margin-left: -45px;
-			    margin-top: 1px;
+				margin-left: em(-45px, 28px);
+			    margin-top: em(1px, 28px);
 				width: em(42px, 32px);
 				height: em(42px, 32px);
 

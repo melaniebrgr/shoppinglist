@@ -12,7 +12,8 @@ var app = ( function() {
 	}
 
 	function toTwoDecimals( num ) {
-		return num.toFixed(2);
+		var floatNum = +num;
+		return floatNum.toFixed(2);
 	}
 
 	function clearPrice( $row ) {
@@ -41,14 +42,14 @@ var app = ( function() {
 		if ( isNumber(amount) ) { 
 				priceData.amount = amount;
 			if ( /([kK][gG][sS]?)$/.test(quantity) ) {
-				priceData.multiplier = item.ppKilo;
+				priceData.multiplier = item.ppKilo ? item.ppKilo : alert("You must enter a number or weight in kilograms");
 			} else {
 				priceData.multiplier = item.ppUnit;
 			}
+			return toTwoDecimals(priceData.amount * priceData.multiplier);
 		} else {
 			alert("You must enter a number or weight in kilograms");
 		}
-		return toTwoDecimals(priceData.amount * priceData.multiplier);
 	}
 
 	function setPrice( $row ) {
@@ -95,7 +96,7 @@ var app = ( function() {
 	function handlePriceInput() {
 		$('.list__price input').keydown(function(e) {
 			if (e.which === 9) {
-				$(this).val( toTwoDecimals( +$(this).val() ) );
+				$(this).val( toTwoDecimals( $(this).val() ) );
 			}
 		});
 		$('.list__price input').keyup(function() {
@@ -150,7 +151,7 @@ var app = ( function() {
 		var downArrowCount = -1;
 
 		$('.list__product input').keyup(function(e) {
-			var $row = $(this).closest('div[class^=row]');
+			var $row = $(this).closest('.row');
 			var $itemsList = $(this).parent().siblings('ul');
 			var product = $(this).val();
 			var productLineWidth = $(this).parent().width();
@@ -171,14 +172,17 @@ var app = ( function() {
 				}
 				if ( $itemsList.children().length ) { 
 					handleLineItemClick($itemsList);
+					// if arrow down pressed
 					if ( e.which === 40 ) {
 						$itemsList.children().eq( downArrowCount ).removeClass('is-highlighted-li');
 						downArrowCount++;
 						$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
+					// if arrow up pressed
 					} else if ( e.which === 38 ) {
 						$itemsList.children().eq( downArrowCount ).removeClass('is-highlighted-li');
 						downArrowCount === -1 ? downArrowCount = -1 : downArrowCount--;
 						$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
+					// if enter pressed, and the down arrow has been pressed at least once
 					} else if ( e.which === 13 && downArrowCount > -1 ) {
 					    e.preventDefault();
 						$(this).val( $itemsList.children().eq( downArrowCount ).text() );
@@ -199,11 +203,11 @@ var app = ( function() {
 
 
 	function addRow() {
-		//attach event listener to last row input fields
-		//whenever they lose focus, check to see if all the other input fields are full
+		//(an event listener was attached to input fields of the last row)
+		//whenever they lose focus, check to see if all the other input fields in the row are full
 		//if they are full, add a new empty row
 		var inputArr = [];
-		$('.list .row').last().find('input').each(function(i, selected) {
+		$('.list .row:last-child input').each(function(i, selected) {
 			if ( $(selected).val().length ) { inputArr[i] = $(selected).val(); }
 		});
 		if ( inputArr.length === 3 ) {
@@ -278,7 +282,8 @@ var app = ( function() {
 		handlePriceInput: handlePriceInput,
 		addRow: addRow,
 		handleSwipeItem: handleSwipeItem,
-		handleDeleteItem: handleDeleteItem
+		handleDeleteItem: handleDeleteItem,
+		isNumber: isNumber
 	};
 })();
 
@@ -295,7 +300,7 @@ $.getJSON("js/items.json").done(function(data) {
 
 /* ----- DOC READY ----- */
 $(document).ready(function() {
-	$('.list .row').first().find('.list__quantity input').focus();
+	$('.list .row:first-child .list__quantity input').focus();
 	app.setPredictiveType();
 	app.handleListBlur();
 	app.handleQuantityInput();

@@ -418,8 +418,8 @@ textarea, input {
       background-repeat: no-repeat;
       content: "";
       display: block;
-      margin-left: -102px;
-      margin-top: -23px;
+      margin-left: -3.1875em;
+      margin-top: -0.71875em;
       position: absolute;
       width: 2.8125em;
       height: 2.8125em;
@@ -452,16 +452,16 @@ textarea, input {
     font-size: 1.75em;
     margin: 0.375em 0; }
     .header h1:before {
-      margin-left: -63px;
-      margin-top: -8px;
+      margin-left: -2.25em;
+      margin-top: -0.2857142857em;
       width: 1.875em;
       height: 1.875em; }
   .header .categories h4 {
     font-size: 0.625em; } }
 @media screen and (max-width: 370px) {
   .header h1:before {
-    margin-left: -45px;
-    margin-top: 1px;
+    margin-left: -1.6071428571em;
+    margin-top: 0.0357142857em;
     width: 1.3125em;
     height: 1.3125em; } }
 .instructions {
