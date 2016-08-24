@@ -30,26 +30,24 @@ var app = ( function() {
 	}
 
 	function getPrice( item, quantity ) {
-		//validate quantity input is a number
-		//determines if kg is included
-		//returns object with quantity and ppU/ppKg
+		// extracts digits from string and coerces to number
+		// determines if "kg" was included look for price-per-kilo
+		// if price-per-kilo unavailable, default to price-per-unit
+		// return price to two decimal places
 		var priceData = {
 			amount: 0,
 			multiplier: 0
 		};
-
 		var amount = +quantity.match(/\d*\.?\d*/)[0];
-		if ( isNumber(amount) ) { 
-				priceData.amount = amount;
-			if ( /([kK][gG][sS]?)$/.test(quantity) ) {
-				priceData.multiplier = item.ppKilo ? item.ppKilo : alert("You must enter a number or weight in kilograms");
-			} else {
-				priceData.multiplier = item.ppUnit;
-			}
-			return toTwoDecimals(priceData.amount * priceData.multiplier);
+		priceData.amount = amount;
+
+		if (/([kK][gG][sS]?)$/.test(quantity)) {
+			priceData.multiplier = item.ppKilo ? item.ppKilo : item.ppUnit;
 		} else {
-			alert("You must enter a number or weight in kilograms");
+			priceData.multiplier = item.ppUnit;
 		}
+
+		return toTwoDecimals(priceData.amount * priceData.multiplier);
 	}
 
 	function setPrice( $row ) {
@@ -184,7 +182,7 @@ var app = ( function() {
 						$itemsList.children().eq( downArrowCount ).addClass('is-highlighted-li');
 					// if enter pressed, and the down arrow has been pressed at least once
 					} else if ( e.which === 13 && downArrowCount > -1 ) {
-					    e.preventDefault();
+					   e.preventDefault();
 						$(this).val( $itemsList.children().eq( downArrowCount ).text() );
 						setPrice($row);
 						closeItemsList($itemsList);
